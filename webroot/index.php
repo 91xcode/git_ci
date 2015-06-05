@@ -1,4 +1,13 @@
 <?php
+if (PHP_SAPI === 'cli' ) {
+	$str_domain = 'auto';
+} else {
+	$str_domain = strstr($_SERVER[ 'HTTP_HOST'], '.', true);
+	$arr_allowed_domain = array( 'www', 'admin', 'teacher', 'api', 'auto', 'crm');
+	$str_domain = !in_array($str_domain, $arr_allowed_domain) ? 'www' : $str_domain;
+}
+define('DOMAIN' , $str_domain);
+date_default_timezone_set('Asia/Shanghai');
 
 /*
  *---------------------------------------------------------------
@@ -56,8 +65,8 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = 'system';
-
+	//$system_path = 'system';
+$system_path = dirname(__DIR__) . '/system';
 /*
  *---------------------------------------------------------------
  * APPLICATION FOLDER NAME
@@ -72,8 +81,8 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'application';
-
+	//$application_folder = 'application';
+$application_folder = dirname(__DIR__) . '/application';
 /*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER
