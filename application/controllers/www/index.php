@@ -23,10 +23,14 @@ class Index extends MY_Controller {
 	}
 	
 	public function index(){
-		echo 2111;
+// 		echo 2111;
 		$a = 'ss';
 		$this->smarty->assign( 'a', $a);
+		$this->load->library('mycommon');
+		$a = $this->mycommon->login(1);
+		var_dump($a);
 		$this->smarty->display( 'www/index.html');
+
 		
 	}
 }
