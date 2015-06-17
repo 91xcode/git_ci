@@ -9,6 +9,9 @@ class Index extends CI_Controller {
 	
 	public function index() {
 		$userinfo = $this->session->all_userdata();
+		if (!$userinfo){
+			redirect('/');
+		}
 		$this->smarty->assign('userinfo',$userinfo);
 		$this->smarty->assign('view', 'welcome');
 		$this->smarty->display('admin/layout.html');

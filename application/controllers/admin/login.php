@@ -44,6 +44,15 @@ class Login extends MY_Controller {
 		}
 	}
 	
+	/**
+	 *  退出登录
+	 */
+	public function logout() {
+		//未登录时，要跳转到首页
+		$this->session->sess_destroy();
+		redirect('/login');
+	}
+	
 	
 	
 	

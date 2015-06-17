@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html class="login-bg">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
-    <link href="{static_url('/bootstrap-3.3.4-dist/css/bootstrap.min.css')}" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="{static_url('/bootstrap-3.3.4-dist/css/bootstrap.min.css')}"
+	rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <link rel="stylesheet" href="{static_url('/admin/css/signin.css')}" type="text/css" media="screen" />
-  </head>
-  <body>
-    
-    
-    <noscript>
-	<div class="xh-topmessage">
-		<div class="xh-topnotice">
-			<div class="xh-topnotice-bd">
-				您的浏览器已禁用JavaScript脚本，这会影响您的正常访问。为了拥有更好的浏览体验，请启用脚本。
+
+<link rel="stylesheet" href="{static_url('/admin/css/signin.css')}"
+	type="text/css" media="screen" />
+</head>
+<body>
+
+
+	<noscript>
+		<div class="xh-topmessage">
+			<div class="xh-topnotice">
+				<div class="xh-topnotice-bd">
+					您的浏览器已禁用JavaScript脚本，这会影响您的正常访问。为了拥有更好的浏览体验，请启用脚本。</div>
+			</div>
+		</div>
+	</noscript>
+	<!--noscript over-->
+
+	<div class="login-wrapper">
+		<a href="index.html"> <img class="logo"
+			src="{static_url('/admin/images/logo-white.png')}">
+		</a>
+
+		<div class="box">
+			<div class="content-wrap">
+				<h6>n5后台管理登录</h6>
+				<form method="post" onsubmit="return false;">
+					<input class="form-control" type="text" placeholder="用户名"
+						name="username" id="username" autofocus> <input
+						class="form-control" type="password" placeholder="密码"
+						name="password" id="password">
+					<button type="submit" id="login_submit"
+						class="btn btn-lg btn-primary btn-block">Sign in</button>
+				</form>
 			</div>
 		</div>
 	</div>
-</noscript><!--noscript over-->
 
-    <div class="login-wrapper">
-        <a href="index.html">
-            <img class="logo" src="{static_url('/admin/images/logo-white.png')}">
-        </a>
 
-        <div class="box">
-            <div class="content-wrap">
-                <h6>n5后台管理登录</h6>
-                <form  method="post" onsubmit="return false;">
-                <input class="form-control" type="text" placeholder="用户名" name="username" id="username" autofocus>
-                <input class="form-control" type="password" placeholder="密码" name="password" id="password">
-                <button type="submit" id="login_submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{static_url('/bootstrap-3.3.4-dist/js/bootstrap.min.js')}"></script>
-    
-    
-    {literal}
-    <script type="text/javascript"> 
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{static_url('/bootstrap-3.3.4-dist/js/bootstrap.min.js')}"></script>
+
+
+	{literal}
+	<script type="text/javascript"> 
     $(function(){
 		$("#login_submit").click(function(){
 		    var username = $("#username").val();
@@ -82,5 +87,5 @@
 	})
     </script>
 	{/literal}
-  </body>
+</body>
 </html>
