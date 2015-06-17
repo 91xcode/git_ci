@@ -1,2 +1,4 @@
 
 application/templates_c/*
+
+!application/templates_c/.gitkeep
