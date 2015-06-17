@@ -2,8 +2,6 @@
 
 class Login extends MY_Controller {
 
-
-	
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('admin/admin_model');
