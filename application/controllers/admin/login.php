@@ -1,30 +1,57 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends MY_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+
 	
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('admin/admin_model');
 	}
 	
+	/**
+	 * 登录页面
+	 */
 	public function index() {
 		$this->smarty->display( 'admin/login.html');
 	}
+	
+	/**
+	 *  登录提交
+	 */
+	public function checkLogin() {
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		if (empty($username) || empty($password)) {
+			self::json_output(array('status'=>'error','msg'=>'用户名或密码不能为空'));
+		}	
+		$result =  $this->admin_model->checkLogin($username,$password);
+		if (empty($result)) {
+			self::json_output(array('status'=>'error','msg'=>'无效的登陆用户'));
+		}
+		
+		if ($result['status'] != '1') {
+			self::json_output(array('status'=>'error','msg'=>'该用户被禁用'));
+		}
+		
+		$salt = $result['salt'];
+		# md5（md5（password）+salt）
+		if(md5(md5($password).$salt )===$result['password']) {
+			$this->session->set_userdata($result);
+			self::json_output(array('status'=>'ok','msg'=>''));
+		} else {
+			self::json_output(array('status'=>'error','msg'=>'用户名或密码不匹配'));
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 /* End of file welcome.php */
