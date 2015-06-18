@@ -15,7 +15,7 @@ class Cate_Model extends CI_Model {
 	 */
 	public function getAll() {
 		$result = array();
-		$sql = "SELECT * FROM ".$this->_table;
+		$sql = "select id,name,pid,path,concat(path,'-',id) as bpath from ".$this->_table." order by bpath asc";
 		$result = $this->db->query($sql)->result_array();
 		return $result;
 	}
@@ -46,7 +46,7 @@ class Cate_Model extends CI_Model {
 	 */
 	public function getChild($prams) {
 		$result = array();
-		$sql = "SELECT * FROM ".$this->_table." WHERE id = ".$prams['id'];
+		$sql = "SELECT * FROM ".$this->_table." WHERE pid = ".$prams['id'];
 		$result = $this->db->query($sql)->result_array();
 		return $result;
 	}
@@ -56,6 +56,15 @@ class Cate_Model extends CI_Model {
 	 */
 	public function delCate($prams) {
 		$this->db->delete($this->_table, $prams);
+		$row = $this->db->affected_rows();
+		return $row;
+	}
+	
+	/**
+	 * 编辑
+	 */
+	public function editCate($set,$where) {
+		$this->db->update($this->_table, $set,$where);
 		$row = $this->db->affected_rows();
 		return $row;
 	}
