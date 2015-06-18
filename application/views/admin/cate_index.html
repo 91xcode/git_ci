@@ -1,0 +1,206 @@
+
+<ol class="breadcrumb">
+	<li><a href="/">管理中心</a></li>
+	<li><a href="/course/course_list">分类</a></li>
+	<span class="pull-right" style="margin-top: -7px;"><button
+				type="button" class="btn btn-success" data-toggle="modal" data-target="#add_cate">添加</button></span>
+</ol>
+<table class="table table-striped table-hover" style="margin-top: 20px;">
+	<thead>
+		<tr>
+			<th>分类id</th>
+			<th>分类name</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+	{foreach from=$tree item=item}
+		<tr>
+			<td># {$item.id}</td>
+			<td>{$item.html}{$item.name}</td>
+			<td><a href="javascript:;" onclick="edit_modal({$item.id})"><i
+					class="fa fa-pencil-square-o"></i></a> <a
+				href="javascript:;" onclick="ConfirmDel({$item.id})" style="margin-left: 15px;"><i
+					class="fa fa-times"></i></a></td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+
+
+
+<!-- Modal 添加 -->
+<div class="modal fade" id="add_cate" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">添加分类</h4>
+			</div>
+			<div class="modal-body">
+			
+			
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">选择分类</label>
+					<div class="col-sm-10">
+						<select class="form-control" name="pid" id="pid">
+						{foreach from=$tree item=item}
+						  <option value="{$item.id}">{$item.html}{$item.name}</option>
+						{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">分类名称</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="name" name="name"
+							placeholder="分类名称">
+					</div>
+				</div>
+			</form>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="sub_btn">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal 编辑 -->
+<div class="modal fade" id="edit_cate" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">编辑分类</h4>
+			</div>
+			<div class="modal-body" id="edit_modal-body">
+			
+			
+
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="sub_btn_edit">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{literal}
+<script type="text/javascript"> 
+//添加
+$(function(){
+	$("#sub_btn").click(function(){
+	    var name = $("#name").val();
+	    var pid = $("#pid").val();
+	    $.ajax({
+	        url : '/cate/ajaxAddCate',
+	        type : 'POST',
+	        data : {'name':name,'pid':pid},
+	        dataType : 'json',
+	        success : function (result) {
+	            if(result.status == 'error') {
+					alert(result.msg)
+	            } else {
+	            	 window.location.href="/cate/index"
+	            }
+	        }
+	    });
+	})
+})
+
+//删除
+function ConfirmDel(id){
+    if(confirm("确定要删除吗？一旦删除将不能恢复！" )){        
+       var data={
+    		   id:id,
+       };
+        $.ajax({
+               type: "POST",
+               url: "/cate/ajaxDelCate",
+               data:data,   
+               dataType: "json",
+               async: false,
+               success: function(data){           	 
+                   if(data.status == 'ok'){
+                	   alert( data.msg);
+                	   location.reload();
+                   } else if(data.status == 'error'){
+                	   alert( data.msg);
+                   }
+               }
+         });
+     } else {
+            return false;
+     }  
+}
+
+//编辑课节弹出框
+function edit_modal(id){
+    var data={
+ 		   id:id,
+    };
+     $.ajax({
+            type: "POST",
+            url: "/cate/editCate",
+            data:data,   
+            dataType: "json",
+            async: false,
+            success: function(data){
+            	//console.log(data.msg.result.id);return false;
+            	
+                if(data.status == 'ok'){
+var ahtml = '';          	
+    ahtml +='<form class="form-horizontal">'
+
+    ahtml +='	<input type="hidden" id="id" value="'+data.msg.result.id+'">'
+    ahtml +='		<div class="form-group">'
+    ahtml +='			<label for="inputPassword3" class="col-sm-2 control-label">选择分类</label>'
+    ahtml +='			<div class="col-sm-10">'
+    ahtml +='				<select class="form-control" name="epid" id="epid">'
+    	 $(data.msg.tree).each(function (k, v) {
+    		 if( v.id == data.msg.result.id){
+    			 ahtml +='<option selected="selected" value="'+v.id+'">'+v.html+v.name+'</option>'	
+    		 }else {
+    			 ahtml +='<option value="'+v.id+'">'+v.html+v.name+'</option>'	
+    		 }
+    			 
+    	  });
+    	 
+    ahtml +='				</select>'
+    ahtml +='			</div>'
+    ahtml +='		</div>'
+    ahtml +='		<div class="form-group">'
+    ahtml +='			<label for="inputEmail3" class="col-sm-2 control-label">分类名称</label>'
+    ahtml +='			<div class="col-sm-10">'
+    ahtml +='				<input type="text" class="form-control" id="ename" name="ename"'
+    ahtml +='					placeholder="分类名称" value="'+data.msg.result.name+'">'
+    ahtml +='			</div>'
+    ahtml +='		</div>'
+    ahtml +='	</form>'
+                	
+                	
+                 $('#edit_cate').modal();
+    			$("#edit_modal-body").html("");
+              	 $("#edit_modal-body").html(ahtml);
+                } else if(data.status == 'error'){
+             	   alert( data.msg);
+                }
+            }
+      });
+}
+</script>
+{/literal}

@@ -6,8 +6,7 @@ class User extends MY_Controller {
 		parent::__construct();
 	}
 	
-	public function index()
-	{
+	public function index() {
 		
 		$int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
 		$per_page_no = 10;
@@ -27,7 +26,7 @@ class User extends MY_Controller {
 		$this->smarty->assign('count', $int_count);
 		$this->smarty->assign('page', $show_page);
 		$this->smarty->assign('list', $arr_data);
-		$this->smarty->assign('view', 'user_list');
+		$this->smarty->assign('view', 'user_index');
 		$this->smarty->display('admin/layout.html');
 	}
 }
