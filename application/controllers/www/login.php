@@ -4,14 +4,15 @@ class Login extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('admin/admin_model');
+		$this->load->model('www/user_model');
 	}
 	
 	/**
 	 * 登录页面
 	 */
 	public function index() {
-		$this->smarty->display( 'admin/login.html');
+		$this->smarty->assign('view', 'login');
+		$this->smarty->display('www/layout.html');
 	}
 	
 	/**
@@ -23,7 +24,7 @@ class Login extends MY_Controller {
 		if (empty($username) || empty($password)) {
 			self::json_output(array('status'=>'error','msg'=>'用户名或密码不能为空'));
 		}	
-		$result =  $this->admin_model->checkLogin($username,$password);
+		$result =  $this->user_model->checkLogin($username,$password);
 		if (empty($result)) {
 			self::json_output(array('status'=>'error','msg'=>'无效的登陆用户'));
 		}

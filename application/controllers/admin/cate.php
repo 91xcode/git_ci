@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 header("Content-type: text/html; charset=utf-8");
-class Cate extends MY_Controller {
+class Cate extends MY_Admin_Controller {
 
 	function __construct(){
 		parent::__construct();

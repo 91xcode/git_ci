@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Index extends MY_Controller {
+class Index extends MY_Www_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -23,20 +23,10 @@ class Index extends MY_Controller {
 	}
 	
 	public function index(){
-
-		$a = 'ss';
-		$this->smarty->assign( 'a', $a);
-		$this->load->library('mycommon');
-		//登录
-		//$a = $this->mycommon->login(1);
-		//注册 密码：加密方式为md5(md5(原始密码)+6位随机字符)
-		//$salt = '123456';//随机的6位字符
-		//$password = md5( md5('123456') . $salt );
-		//$a = $this->mycommon->regediter('liu','123456','123@qq.com');
-		//var_dump($a);
-		$this->smarty->display( 'www/index.html');
-
-		
+// 		var_dump($this->userinfo);
+		$this->smarty->assign('userinfo',$this->userinfo);
+		$this->smarty->assign('view', 'index');
+		$this->smarty->display('www/layout.html');
 	}
 }
 
