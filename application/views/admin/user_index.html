@@ -9,18 +9,18 @@
 
 
 <!--数据查询-->
-<form class="form-horizontal" role="form" action="course_list">
+<form class="form-horizontal" role="form" action="/user/index">
 	<div class="row">
 		<div class="col-xs-2">
-			<input type="text" class="form-control" placeholder="请输入课程名称查询"
-				name="course_title" value="">
+			<input type="text" class="form-control" placeholder="输入邮箱查询"
+				name="email" value="">
 		</div>
 		<div class="col-xs-2">
-			<input type="text" class="form-control" placeholder="请输入开始时间查询"
+			<input type="text" class="form-control" placeholder="输入开始时间查询"
 				name="start_time" id="seach_start_time" value="" onclick="jsDate();">
 		</div>
 		<div class="col-xs-2">
-			<input type="text" class="form-control" placeholder="请输入结束时间查询"
+			<input type="text" class="form-control" placeholder="输入结束时间查询"
 				name="end_time" id="seach_end_time" value="" onclick="jsDate();">
 		</div>
 		<div class="col-xs-2">
@@ -39,163 +39,57 @@
 		</div>
 		<div class="col-xs-2">
 			<button type="submit" class="btn btn-primary">查询</button>
-			<a href="/course/course_list" class="btn btn-primary">重置</a>
+			<a href="/user/index" class="btn btn-primary">重置</a>
 		</div>
 	</div>
 </form>
 <br />
-<div class="alert alert-success" role="alert">符合查询条件的共有7条数据</div>
+<div class="alert alert-success" role="alert">符合查询条件的共有{$count}条数据</div>
 <table class="table table-striped table-hover" style="margin-top: 20px;">
 	<thead>
 		<tr>
 			<th>编号</th>
-			<th>名称</th>
-			<th>歌手</th>
-			<th>来源</th>
-			<th>风格</th>
-			<th>语言</th>
-			<th>心情</th>
+			<th>邮箱</th>
+			<th>手机</th>
+			<th>昵称</th>
+			<th>注册时间</th>
+			<th>状态</th>
 			<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
+		{foreach $list as $v}
 		<tr>
-			<td># 26</td>
-			<td>好了歌</td>
-			<td>王立平</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
+			<td># {$v.id}</td>
+			<td>{$v.email}</td>
+			<td>{$v.phone_mask}</td>
+			<td>{$v.nickname}</td>
+			<td>{date('Y-m-d H:i',$v.register_time)}</td>
+			<td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}
+			</td>
 			<td><a href="admin.php?c=song&m=updateSong&song=26"><i
 					class="fa fa-pencil-square-o"></i></a> <a
 				href="admin.php?c=song&m=delete&song=26" style="margin-left: 15px;"><i
 					class="fa fa-times"></i></a></td>
 		</tr>
-		<tr>
-			<td># 25</td>
-			<td>分骨肉</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=25"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=25" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 24</td>
-			<td>题帕三绝</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=24"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=24" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 23</td>
-			<td>引子</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=23"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=23" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 22</td>
-			<td>红豆曲</td>
-			<td>王洁实</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=22"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=22" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 21</td>
-			<td>叹香菱</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=21"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=21" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 20</td>
-			<td>紫菱洲歌</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=20"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=20" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 19</td>
-			<td>枉凝眉</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=19"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=19" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 18</td>
-			<td>秋窗风雨夕</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=18"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=18" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
-		<tr>
-			<td># 17</td>
-			<td>葬花吟</td>
-			<td>陈力</td>
-			<td>网易云音乐</td>
-			<td>流行</td>
-			<td>国语</td>
-			<td>怀旧</td>
-			<td><a href="admin.php?c=song&m=updateSong&song=17"><i
-					class="fa fa-pencil-square-o"></i></a> <a
-				href="admin.php?c=song&m=delete&song=17" style="margin-left: 15px;"><i
-					class="fa fa-times"></i></a></td>
-		</tr>
+		{/foreach}
 	</tbody>
 </table>
-<div class="text-right">
-	<nav class="pagination">
-		<li class="active disabled"><a href="javascript:void(0)">1</a></li>
-		<li><a href="admin.php?c=song&m=index&amp;page=2">2</a></li>
-		<li><a href="admin.php?c=song&m=index&amp;page=3">3</a></li>
-		<li><a href="admin.php?c=song&m=index&amp;page=2">下一页</a></li>
-	</nav>
-</div>
+<div class="text-right">{$page}</div>
+
+<script type="text/javascript"
+	src="{static_url('/My97DatePicker/WdatePicker.js')}"></script>
+{literal}
+<script type="text/javascript">
+	//时间插件
+	function jsDate() {
+		WdatePicker({
+			isShowClear : true,
+			readOnly : true,
+			isShowWeek : true,
+			dateFmt : 'yyyy-MM-dd HH:mm'
+		})
+
+	}
+</script>
+{/literal}
