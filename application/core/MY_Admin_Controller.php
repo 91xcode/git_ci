@@ -3,7 +3,7 @@
 
 class MY_Admin_Controller extends MY_Controller {
 
-	protected $arr_not_need_login_controller = array('login');
+	protected $arr_not_need_login_controller = array('login','save');
 	
     function __construct() {
         parent::__construct();

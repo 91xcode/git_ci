@@ -1,0 +1,68 @@
+
+ <link href="{static_url('/uploadify/2.2/uploadify.css')}" rel="stylesheet" type="text/css" media="all" />
+ <script type="text/javascript" src="{static_url('/uploadify/2.2/jquery.uploadify.js')}"></script>
+<form class="form-horizontal"  method="post" enctype="multipart/form-data">
+				<input type="hidden" id="token" value="{$token}">
+				<input type="hidden" id="timestamp" value="{$timestamp}">
+				<div class="form-group">
+							<label  class="col-sm-2 control-label"><strong style="color: #f45b5b">*</strong>图片</label>
+					<div class="col-sm-2" style=" margin-bottom: 0; padding-top: 7px;">
+						<div id="queue"></div>
+						<input id="file_upload" name="file_upload" type="file" multiple="true">		
+					</div>
+				</div>
+			</form>
+			
+			{literal}
+<script type="text/javascript"> 
+/* 	$("#sub_add").click(function(){
+	    var filename = $("#exampleInputFile").val();
+	   // alert(filename);return false;
+	    $.ajax({
+	        url : '/upload/saveQiNiu',
+	        type : 'POST',
+	        data : {'filename':filename},
+	        dataType : 'json',
+	        success : function (result) {
+	            if(result.status == 'error') {
+					alert(result.msg)
+	            } else {
+	            	alert(result.msg)
+	            	 window.location.href="/cate/index"
+	            }
+	        }
+	    });
+	}) */
+	
+	
+	$(function(){	
+	   //-----------------------上传图片---------------------------------------------------
+	   var FData = {'timestamp':$('#timestamp').val(),'token':$('#token').val()};
+	   setTimeout(function(){
+		   
+		   $("#file_upload").uploadify({
+			   //alert(1)
+		       'formData' : FData,
+		       'swf': 'http://admin.gitci.com/static/uploadify/2.2/uploadify.swf?'+Math.random(),
+		       'uploader' : '/upload/upload_file', //需要上传的url地址
+		       'multi'    : false,
+		       'fileSizeLimit' : '2MB',
+		       'buttonText': '<div>选择文件</div>',
+		        onUploadSuccess: function(file, data, response) {
+		        	console.log(data);return fasle;
+		    	   data = eval("("+data+")");
+		    	   if(data.status == 'ok'){
+
+		    	   } else if(data.status == 'error'){
+		    		   alert(data.msg);
+		    	   }else if(data.status == 'no'){
+		    		   alert(data.msg);
+		    	   }
+		       }
+		   });
+	  },10);
+	   
+	 });
+
+	</script>
+{/literal}
