@@ -1,4 +1,9 @@
 <?php
+/**
+ * Ucenter 调用方法
+ * @author bingliu
+ *
+ */
  class Mycommon {       
          function __construct(){
                  include './config.inc.php';
