@@ -40,6 +40,6 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('NH_QINIU_ACCESS_KEY', 'lvfsVskR8IUy-hkWKld3RftPwvqvWXXrsVQ2FxRu');
 define('NH_QINIU_SECRET_KEY', '29IJX9Vtl_-mCKNv3kKpIJvID_RXfNuQnYJTOZt2');
 define('NH_QINIU_BUCKET', 'wsbnd9');
-define('NH_QINIU_RECORD_URL', 'http://' . NH_QINIU_BUCKET . '.qiniudn.com/');
+define('NH_QINIU_URL', 'http://' . NH_QINIU_BUCKET . '.qiniudn.com/');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
