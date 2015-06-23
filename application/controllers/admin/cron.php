@@ -5,8 +5,7 @@ class Cron extends CI_Controller {
 
 
 	/**
-	 * @permission eduv汉字注释
-	 * @author yanrui_a@aspirecn.com
+	 * 将权限写到permission
 	 */
 	public function scan(){
 		$arr_all_permission =array();

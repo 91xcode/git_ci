@@ -13,12 +13,21 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
+			  	{if pass('user','index')}
 				<li><a href="/user">用户</a></li>
+				{/if}
+				{if pass('cate','index')}
 				<li><a href="/cate">分类</a></li>
+				{/if}
+				{if pass('auth','index')}
 				<li><a href="/auth">权限</a></li>
-				<li><a href="/system">系统</a></li>
+				{/if}
+				{if pass('picture','index')}
 				<li><a href="/picture">图片</a></li>
+				{/if}
+				{if pass('avatar','index')}
 				<li><a href="/avatar">头像</a></li>
+				{/if}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="http://www.gitci.com" target="_black">网站</a></li>

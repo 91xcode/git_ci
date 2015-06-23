@@ -6,7 +6,9 @@ class Index extends MY_Admin_Controller {
 		parent::__construct();
 	}
 
-	
+	/**
+	 * 后台首页
+	 */
 	public function index() {
 		$this->smarty->assign('userinfo',$this->userinfo);
 		$this->smarty->assign('view', 'welcome');

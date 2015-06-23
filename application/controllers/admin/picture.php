@@ -9,7 +9,7 @@ class Picture extends MY_Admin_Controller {
 	
 	/**
 	 * 图片列表
-	 * 
+	 * @permission 图片列表
 	 */
 	public function index() {
 		$timestamp = time();

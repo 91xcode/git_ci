@@ -4,7 +4,6 @@
  * 根据当前域名生成静态文件的url
  * @param $str_url
  * @return string
- * @author yanrui@tizi.com
  */
 function static_url($str_url){
 	//    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
@@ -34,7 +33,7 @@ function pass($ctrl = '', $act = '') {
 		if ($CI->userinfo) {
 			$user = $CI->userinfo;
 			$admin_group = $CI->db->query("SELECT *  FROM my_admin_permission_relation WHERE admin_id = ".$user['id'])->row_array();
-			if ((!empty($admin_group)&&($admin_group['level'] == 1))) {
+			if ((!empty($admin_group)&&($admin_group['group_id'] == 5))) {
 				$permissions = true;
 			} else{
 				$data = $CI->db->query("SELECT  p.controller, p.action FROM  my_admin_permission_relation  AS apr

@@ -51,6 +51,7 @@ class Upload extends MY_Controller {
 	}
 	
 	/**
+	 * @permission 保存图片到七牛
 	 * 保存图片到七牛
 	 */
 	public function saveQiNiu(){
