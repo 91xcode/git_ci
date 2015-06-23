@@ -36,6 +36,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-
+//七牛账号
+define('NH_QINIU_ACCESS_KEY', 'lvfsVskR8IUy-hkWKld3RftPwvqvWXXrsVQ2FxRu');
+define('NH_QINIU_SECRET_KEY', '29IJX9Vtl_-mCKNv3kKpIJvID_RXfNuQnYJTOZt2');
+define('NH_QINIU_BUCKET', 'wsbnd9');
+define('NH_QINIU_URL', 'http://' . NH_QINIU_BUCKET . '.qiniudn.com/');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

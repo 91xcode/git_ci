@@ -48,7 +48,7 @@ class Login extends MY_Controller {
 	public function logout() {
 		//未登录时，要跳转到首页
 		$this->session->sess_destroy();
-		redirect('/login');
+		redirect('/');
 	}
 	
 	

@@ -1,0 +1,72 @@
+<div class="container reg">
+	<div class="row">
+		<div
+			class="col-xs-offset-1 col-md-offset-2 col-lg-offset-3 col-xs-10 col-md-8 col-lg-6">
+			<div class="alert alert-danger hide " role="alert">登录失败</div>
+		</div>
+		<form class="form-horizontal" method="post" onsubmit="return false;"
+			role="form">
+			<div class="form-group">
+				<label for="inputUsername" class="control-label sr-only">用户名/邮箱</label>
+				<div
+					class="col-xs-offset-1 col-md-offset-2 col-lg-offset-3 col-xs-10 col-md-8 col-lg-6">
+					<div class="input-group">
+						<input class="hide" type="text"> <span
+							class="input-group-addon"><i class="fa fa-envelope"></i></span> <input
+							class="form-control" name="username" id="username" value=""
+							placeholder="你的用户名或者邮箱地址" autocomplete="off" maxlength="32"
+							autofocus="true" required="true" type="text">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword" class="control-label sr-only">密 码</label>
+				<div
+					class="col-xs-offset-1 col-md-offset-2 col-lg-offset-3 col-xs-10 col-md-8 col-lg-6">
+					<div class="input-group">
+						<input class="hide" type="password"> <span
+							class="input-group-addon"><i class="fa fa-key"></i></span> <input
+							class="form-control" name="password" id="password"
+							autocomplete="off" maxlength="18" placeholder="你的密码"
+							required="true" type="password">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div
+					class="col-xs-offset-1 col-md-offset-2 col-lg-offset-3 col-xs-10 col-md-8 col-lg-6">
+					<button type="submit" class="btn btn-info" id="login_submit">登
+						录</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$("#login_submit").click(function() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			$.ajax({
+				url : '/login/checkLogin',
+				type : 'POST',
+				data : {
+					'username' : username,
+					'password' : password
+				},
+				dataType : 'json',
+				success : function(result) {
+					if (result.status == 'error') {
+						alert(result.msg)
+					} else {
+						window.location.href = "/"
+					}
+				}
+			});
+		})
+	})
+</script>
+{/literal}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    {include file="www/header.html"}
+</head>
+<body>
+ 	{include file="www/nav.html"}
+ 	
+ 	
+	<div class="container" >
+    {include 'www/'|cat:$view|cat:'.html'}
+	</div>
+	
+	
+    {include file="www/footer.html"}
+</body>
+</html>

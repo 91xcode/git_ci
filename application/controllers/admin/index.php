@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Index extends MY_Admin_Controller {
 
 	function __construct(){
 		parent::__construct();
@@ -8,11 +8,7 @@ class Index extends CI_Controller {
 
 	
 	public function index() {
-		$userinfo = $this->session->all_userdata();
-		if (!$userinfo){
-			redirect('/');
-		}
-		$this->smarty->assign('userinfo',$userinfo);
+		$this->smarty->assign('userinfo',$this->userinfo);
 		$this->smarty->assign('view', 'welcome');
 		$this->smarty->display('admin/layout.html');
 	}

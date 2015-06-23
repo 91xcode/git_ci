@@ -23,9 +23,9 @@ class Cate_Model extends CI_Model {
 	/**
 	 * 获取一条数据
 	 */
-	public function getOne($prams) {
+	public function getOne($params) {
 		$result = array();
-		$sql = "SELECT * FROM ".$this->_table." WHERE id = ".$prams['id'];
+		$sql = "SELECT * FROM ".$this->_table." WHERE id = ".$params['id'];
 		$result = $this->db->query($sql)->row_array();
 		return $result;
 	}
@@ -35,8 +35,8 @@ class Cate_Model extends CI_Model {
 	 * @param array $prams
 	 * @return boolean
 	 */
-	public function addCate($prams){
-		$this->db->insert($this->_table,$prams);
+	public function addCate($params){
+		$this->db->insert($this->_table,$params);
 		$insert_id = $this->db->insert_id();
 		return $insert_id >0 ? true : false;
 	}
@@ -44,9 +44,9 @@ class Cate_Model extends CI_Model {
 	/**
 	 * 获取子类
 	 */
-	public function getChild($prams) {
+	public function getChild($params) {
 		$result = array();
-		$sql = "SELECT * FROM ".$this->_table." WHERE pid = ".$prams['id'];
+		$sql = "SELECT * FROM ".$this->_table." WHERE pid = ".$params['id'];
 		$result = $this->db->query($sql)->result_array();
 		return $result;
 	}
@@ -54,8 +54,8 @@ class Cate_Model extends CI_Model {
 	/**
 	 * 删除
 	 */
-	public function delCate($prams) {
-		$this->db->delete($this->_table, $prams);
+	public function delCate($params) {
+		$this->db->delete($this->_table, $params);
 		$row = $this->db->affected_rows();
 		return $row;
 	}
