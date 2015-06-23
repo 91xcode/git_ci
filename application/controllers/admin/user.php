@@ -7,6 +7,9 @@ class User extends MY_Admin_Controller {
 		$this->load->model('admin/user_model');
 	}
 	
+	/**
+	 * @permission 用户列表
+	 */
 	public function index() {
 		$this->load->library('pagination');
 		$config = config_item('page_admin');

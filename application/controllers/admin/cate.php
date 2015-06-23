@@ -10,6 +10,7 @@ class Cate extends MY_Admin_Controller {
 	}
 	
 	/**
+	 * @permission 分类列表
 	 * 列表
 	 */
 	public function index() {

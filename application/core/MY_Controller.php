@@ -7,17 +7,17 @@ class MY_Controller extends CI_Controller {
 	 * 用户信息
 	 * @var unknown
 	 */
-	protected $userinfo = array();
+	public $userinfo = array();
 	/**
 	 * 保存当前控制器和方法名
 	 * @var unknown
 	 */
-	protected $current = array();
+	public $current = array();
 	/**
 	 * 登录状态
 	 * @var unknown
 	 */
-	protected $is_login = false;
+	public $is_login = false;
 	
     function __construct() {
         parent::__construct();

@@ -15,6 +15,18 @@ class MY_Admin_Controller extends MY_Controller {
         		redirect('/login/index');
         	}
         }
+        
+        //判断是否有访问当前类和方法的权限
+        $is_permission = pass($this->current['controller'],$this->current['action']);
+        if(!in_array($this->current['controller'], array('login','index'))) {
+        	if(!$is_permission){
+        		if(self::is_ajax()){
+        			self::json_output(array('msg' => 'No Permission to Pass'));
+        		}else{
+        			die('No Permission to Pass');
+        		}
+        	}
+        }
     }
 
     
