@@ -1,1 +1,35 @@
-avater
+ <link href="{static_url('/TiZiavatar/avater.css')}" rel="stylesheet">
+	<div class="inforTabBox atareditorBox ">
+		<!--添加头像开始-->
+        <div class="box modifyPic TiZiAvatar">
+            <dl class="atareditor cf">
+                <dt id="upload" class="current ml10"><a href="javascript:void(0);" class="localUpload"><em></em><span>本地照片</span></a></dt>
+                <dt id="webcam" class=""><a href="javascript:void(0);" class="videoUpload"><em></em><span>拍照上传</span></a></dt>
+                <dd class="cf">
+                    <p>仅支持GIF  JPG  PNG 图片文件，请注意头像清晰度</p>
+                    <div id="avatar">
+                        <div id="TiZiAvatar"></div>
+                    </div>
+                    <ul id="editorPanelButtons" class="cf undis">
+                        <li class="fr">
+                            <a href="javascript:void(0)" class="noShowBtn redBtn button_upload">上传</a>
+                            <a href="javascript:void(0)" class="noShowBtn redBtn button_cancel">取消</a>
+                        </li>
+                    </ul>
+                    <p id="webcamPanelButton" class="cf undis">
+                        <a href="javascript:void(0)" class="noShowBtn redBtn button_shutter">拍照</a>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+        <!--添加头像结束-->
+	</div>
+<script type="text/javascript" src="{static_url('/TiZiavatar/swfobject.js')}"></script>
+<script type="text/javascript" src="{static_url('/TiZiavatar/TiZiavatar.js')}"></script>
+<script type="text/javascript" src="{static_url('/TiZiavatar/TiZiavatar.object.js')}"></script>
+{literal}
+<script type="text/javascript"> 
+
+
+</script>
+{/literal}
