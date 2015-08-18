@@ -2,6 +2,7 @@ swfobject.addDomLoadEvent(function () {
     var webcamAvailable = false;
     var currentTab = 'upload';
     var callback = function (json) {
+    	console.log(json)
         switch (json.code) {
             case 1: //alert("页面成功加载了组件！");
                     break;
@@ -60,10 +61,13 @@ swfobject.addDomLoadEvent(function () {
                     //alert("头像已成功保存至服务器，url为：\n" + json.content.avatarUrls.join("\n"));
                     //$('.button_cancel').click();
                     $('.userInfo').find('img').removeAttr('src');
-                    $('.userInfo').find('img').attr('src',nh_img_host + json.content.avatar_key+'?v='+(new Date).valueOf());
+                    $('.userInfo').find('img').attr('src','http://wsbnd9.qiniudn.com/' + json.content.avatar_key+'?v='+(new Date).valueOf());
                     cancelClick();
                 }else if (json.type == 1) {
                     //$.tiziDialog({content:json.content.msg});
+                    $('.userInfo').find('img').removeAttr('src');
+                    $('.userInfo').find('img').attr('src','http://wsbnd9.qiniudn.com/' + json.content.avatar_key+'?v='+(new Date).valueOf());
+                    cancelClick();
                 }else {
                     //$.tiziDialog({content:json.content});
                 }
