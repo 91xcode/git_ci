@@ -59,6 +59,71 @@ class User extends MY_Admin_Controller {
 		
 		
 	}
+	
+	
+	/**
+	 * 分页测试
+	 */
+	public function test(){
+		$this->smarty->assign('view', 'test');
+		$this->smarty->display('admin/layout.html');
+	}
+	
+	/**
+	 * ajax分页 (js版)
+	 */
+	function ajax_test(){
+		$this->load->library('pagination');
+		$config = config_item('page_admin');
+		$config['num_links'] = 3;
+		$config['uri_segment'] = '3';//设为页面的参数，如果不添加这个参数分页用不了
+		$config['use_page_numbers']   = TRUE;
+		$config['page_query_string']  = TRUE;
+			
+		$config['per_page'] = 10;//每页显示的数据数
+		$current_page       = intval($this->input->get_post('per_page',true)); //获取当前分页页码数
+		//page还原
+		if(0 == $current_page){
+			$current_page = 1;
+		}
+		$offset = ($current_page - 1 ) * $config['per_page']; //设置偏移量 限定 数据查询 起始位置（从 $offset 条开始）
+			
+		$config['base_url'] = '/user/ajax_test?';
+		$where = '1=1 ';
+			
+		if (!empty($_GET['email'])) {
+			$where .= " AND email  like '%".$_GET['email']."%'";
+			$config['base_url'].="email=".$_GET['email'];
+		}
+		if (!empty($_GET['start_time']) && empty($_GET['start_time'])) {
+			$where .= " AND register_time  >= '".strtotime($_GET['start_time'])."'";
+			$config['base_url'].="&start_time=".$_GET['start_time'];
+		}
+		if (empty($_GET['end_time']) && !empty($_GET['end_time'])) {
+			$where .= " AND register_time  <= '".strtotime($_GET['end_time'])."'";
+			$config['base_url'].="&end_time=".$_GET['end_time'];
+		}
+		if (!empty($_GET['start_time']) && !empty($_GET['end_time'])) {
+			$where .= " AND register_time  >='".strtotime($_GET['start_time'])."' AND register_time  <='".strtotime($_GET['end_time'])."'";
+			$config['base_url'].="&start_time=".$_GET['start_time']."&end_time=".$_GET['end_time'];
+		}
+		
+		if (isset($_GET['status']) && $_GET['status'] >=0) {
+			$where .= " AND status  = ".$_GET['status'];
+			$config['base_url'].="&status=".$_GET['status'];
+		}
+		$count =  $this->user_model->getCount($where);
+		$config['total_rows'] = $count;
+		$this->pagination->initialize($config);
+		$show_page = $this->pagination->create_links();
+		$list = $this->user_model->getAll($where,$offset,$config['per_page'],$order='id desc');
+		if($list){
+			foreach($list as $k=>$v){
+				$list[$k]['register_time'] = date("Y-m-d H:i:s",$v['register_time']);
+			}
+			self::json_output(array('status'=>'ok','list'=>$list,'page'=>$show_page,'count'=>$count));
+		}
+	}
 }
 
 /* End of file welcome.php */

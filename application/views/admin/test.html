@@ -1,0 +1,137 @@
+
+<ol class="breadcrumb">
+	<li><a href="/">管理中心</a></li>
+	<li><a href="/user">用户</a></li>
+	<span class="pull-right" style="margin-top: -7px;"> <a href="/user/addUser"><button
+				type="button" class="btn btn-success">添加</button></a></span>
+</ol>
+
+
+
+<!--数据查询-->
+<form class="form-horizontal" role="form" action="javascript:;">
+	<div class="row">
+		<div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="输入邮箱查询"
+				name="email" value="" id="email">
+		</div>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="输入开始时间查询"
+				name="start_time" id="seach_start_time" value="" onclick="jsDate();">
+		</div>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="输入结束时间查询"
+				name="end_time" id="seach_end_time" value="" onclick="jsDate();">
+		</div>
+		<div class="col-xs-2">
+			<select class="form-control" name="status" id="status">
+				<option value="-1">请选择状态</option>
+				<option value="1">启用</option>
+				<option value="0">禁用</option>
+			</select>
+		</div>
+		<div class="col-xs-2">
+			<button type="submit" class="btn btn-primary search_btn">查询</button>
+			<a href="/user/test" class="btn btn-primary">重置</a>
+		</div>
+	</div>
+</form>
+<br />
+<div class="alert alert-success" role="alert">符合查询条件的共有<span id="count">0</span>条数据</div>
+<table class="table table-striped table-hover" style="margin-top: 20px;">
+	<thead>
+		<tr>
+			<th>编号</th>
+			<th>邮箱</th>
+			<th>手机</th>
+			<th>昵称</th>
+			<th>注册时间</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody id="lists" load="/user/ajax_test">
+		
+	</tbody>
+</table>
+<div class="text-right show"></div>
+
+<script type="text/javascript"
+	src="{static_url('/My97DatePicker/WdatePicker.js')}"></script>
+{literal}
+<script type="text/javascript">
+	//时间插件
+	function jsDate() {
+		WdatePicker({
+			isShowClear : true,
+			readOnly : true,
+			isShowWeek : true,
+			dateFmt : 'yyyy-MM-dd HH:mm'
+		})
+
+	}
+	$(function(){
+
+		//初始加载数据
+		var load_url = $('#lists').attr('load');
+		load_page(load_url);
+		function load_page(url){
+			$.get(url,function(data){
+				if(data.status=='ok'){
+					var html =''
+					$.each(data.list,function(i,v){
+						html +='<tr>'
+						html +='	<td># '+v.id+'</td>'
+						html +='	<td>'+v.email+'</td>'
+						html +='	<td>'+v.phone_mask+'</td>'
+						html +='    <td>'+v.nickname+'</td>'
+						html +='    <td>'+v.register_time+'</td>'
+						if(v.status==1){
+							html +='    <td>已启用</td>'
+						} else {
+							html +='    <td><font color="red">已禁用</font></td>'
+						}
+						html +='    <td><a href="admin.php?c=song&m=updateSong&song=26"><i'
+						html +='		class="fa fa-pencil-square-o"></i></a> <a'
+						html +='	href="admin.php?c=song&m=delete&song=26" style="margin-left: 15px;"><i'
+						html +='	class="fa fa-times"></i></a></td>'
+						html +='</tr>'
+					})
+				}
+				$('#lists').html(html)
+				$('.show').html(data.page)
+				$('#count').html(data.count)
+				$('.show a').each(function(){
+					$(this).attr('url',$(this).attr('href'));
+					$(this).removeAttr('href')
+				})
+			})
+		}
+		
+		//点击分页时
+		 $('.show').on('click','a',function(){
+			 $('#lists').html('加载中')
+			 load_page($(this).attr('url'))
+		 })
+		 
+		 //搜索
+		 $('.search_btn').click(function(){
+			var search_url = '/user/ajax_test?'
+			var status = $('#status').val()
+			
+			if(status >=0){
+				search_url += '&status='+status
+			}
+			var email = $('#email').val()
+			if(email){
+				search_url += '&email='+email
+			}
+			alert(search_url)
+			load_page(search_url)
+		})
+		     
+	})	
+	
+	
+</script>
+{/literal}
